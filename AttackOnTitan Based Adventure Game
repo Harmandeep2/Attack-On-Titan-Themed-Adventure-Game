@@ -1,0 +1,1261 @@
+/**
+  * Program is a game based on a popular TV show where there are Titans and Humans have to fight for their life to defeat the titans.
+  * Program uses multiple concepts from what we have learned in this computer science course to create the game.
+  * It asks for user input and uses try catch statements to detect any invalid data and prevent the program from crashing. 
+  * The user can choose to be a titan or a member of the Survey Corps (Titan Fighting Task Force) and then play out some scenarios.
+  * If the user makes the wrong decisions. He/she will die and the program will exit.
+  * If the user makes the right decisions, the user will get a congratulatory message and will advance to the next stage.
+  */
+
+   /**
+    * Name: Harmandeep Arneja
+    * Course Code: ICS 3U1
+    * Date: 27 January, 2021
+    * Program: Attack On Titan Based Adventure Game
+    */
+
+package aotcpt;
+
+// Importing Scanner class
+import java.util.Scanner;
+
+// Importing Random class
+import java.util.Random;
+
+public class AotCPT {
+    
+    // Subroutine which will be used to output a random Titan name and District as a scenario to the user
+    public static void titanAttack()
+    {
+        Random rand = new Random(); // Variable
+        String[] titans = {"Colossal", "Warhammer", "Beast", "Jaws", "Armoured", "Female", "Cart"}; // Titan Name
+        String[] places = {"Ragako", "Shiganshina", "Trost"}; // District name
+        String titan = titans[rand.nextInt(titans.length)]; // Randomizing it
+        String place = places[rand.nextInt(places.length)]; // Randomizing it
+        System.out.println("       The " + titan + " titan has attacked " + place + " district"); // Outputting it
+    }
+    
+    // Subroutine which will be used to output information about Paradis island
+    public static void paradisInfo()
+    {
+        // Text to be outputted
+        System.out.println("Paradis island is a massive island with the walls of Maria, Rose, Sina. These walls contain the remainder of humanity which");
+        System.out.println("was wiped out by monsters called titans. Now it is up to the Survey Corps to protect the rest of humanity.");
+        System.out.println("");
+    }
+    
+    // Subroutine which will be used to output the statistics of Captain Levi (Human, SCM)
+    public static void leviStats()
+    {
+        // Text to be outputted
+        System.out.println("You have chosen to fight as Squad Captain, Levi Ackerman");
+        System.out.println("These are Captain Levi's stats - Attack: 100, Defence: 95, Intelligence: 80");
+        System.out.println("These are Captain Levi's strengths and weaknesses - Strengths: Awakened Power, Expert Swordsman, Expert Combatant");
+        System.out.println("Weakness: None");
+        System.out.println("");
+    }
+    
+    // Subroutine which will be used to output the statistics of Commander, Zoe Hange (Human, SCM)
+    public static void hangezoeStats()
+    {
+        // Text to be outputted
+        System.out.println("You have chosen to fight as 14th Commander, Zoe Hange");
+        System.out.println("These are Zoe-Hange's stats - Attack: 80, Defence: 75, Intelligence: 95");
+        System.out.println("These are Zoe-Hange's strengths and weaknesses - Strengths: Intelligent, Extraordinary Scientific Abilities, Advanced Titan Knowledge");
+        System.out.println("Weakness: Reckless and Impulsive Nature");
+        System.out.println("");
+    }
+    
+    // Subroutine which will be used to output the statistics of Soldier, Mikasa Ackerman (Human, SCM)
+    public static void mikasaStats()
+    {
+        // Text to be outputted
+        System.out.println("You have chosen to fight as Soldier, Mikasa Ackerman");
+        System.out.println("These are Mikasa Ackerman's stats - Attack: 90, Defence: 90, Intelligence: 70");
+        System.out.println("These are Mikasa Ackerman's strengths and weaknesses - Strengths: Super Strength, Exceptional Maneuvering Abilities, Swordsmanship");
+        System.out.println("Weakness: Arrogant and Protective at times");
+        System.out.println("");
+    }
+    
+    // Subroutine which will be used to output the statistics of The Beast Titan
+    public static void beastStats()
+    {
+        // Text to be outputted
+        System.out.println("You have chosen to fight as Zeke Yeager who controls The Beast Titan");
+        System.out.println("These are The Beast Titan's stats - Attack: 100, Defence: 85, Intelligence: 90");
+        System.out.println("These are The Beast Titan's strengths and weaknesses - Strengths: Hardening, Powerful Throwing, Climbing, Titan Control");
+        System.out.println("Weakness: Arrogant");
+        System.out.println("");  
+    }
+    
+    // Subroutine which will be used to output the statistics of The Attack Titan
+    public static void attacktitanStats()
+    {
+        // Text to be outputted
+        System.out.println("You have chosen to fight as Eren Yeager who controls The Attack Titan");
+        System.out.println("These are The Attack Titan's stats - Attack: 90, Defence: 80, Intelligence: 75");
+        System.out.println("These are The Attack Titan's strengths and weaknesses - Strengths: Stamina, Attack, Quick Regeneration");
+        System.out.println("Weakness: Zero Self-Esteem");
+        System.out.println("");  
+    }
+    
+    // Subroutine which will be used to output the statistics of The Colossal Titan
+    public static void colossalStats()
+    {
+        // Text to be outputted
+        System.out.println("You have chosen to fight as Armin Arlert who controls The Colossal Titan");
+        System.out.println("These are The Attack Titan's stats - Attack: 94, Defence: 89, Intelligence: 88");
+        System.out.println("These are The Attack Titan's strengths and weaknesses - Strengths: Incredible Size, Overwhelming Strength, Steam Emission");
+        System.out.println("Weakness: Slow Moving");
+        System.out.println("");  
+    }
+    
+    public static void main(String[] args) {
+        
+        // Declaring the scanner object
+        Scanner input = new Scanner (System.in);
+        Random rand = new Random();
+        
+        // Variables needed in our program
+        String userInput, userInput1, userInput2;
+        int choice = 0;
+        int choice1 = 0;
+        int choice2 = 0;
+        int PeopleKilled = 80 + (int)(Math.random()* (191)); // Generating a random number to output the number of people killed
+        
+        // Multiple boolean variables required to complete try catches and while loops. They have been initialized as false.
+        boolean valid5 = false;
+        boolean valid6 = false;
+        boolean valid8 = false;
+        boolean valid9 = false;
+        boolean valid11 = false;
+        boolean valid12 = false;
+        boolean valid14 = false;
+        boolean valid15 = false;
+        boolean valid17 = false;
+        boolean valid18 = false;
+        boolean valid20 = false;
+        boolean valid21 = false;
+        
+    // While loop which will output the menu everytime the user doesn't choose to exit
+    while (choice != 4)
+    {
+        boolean valid = true; // Setting the boolean value to true
+        while (valid == true) // While loop which will run when valid is set to true
+        
+        // Try part of try catch statement initiated
+        try {
+            
+            // Outputting the menu of the program to the usr
+            System.out.println("---Attack On Titan---");
+            System.out.println("       進撃の巨人");
+            System.out.println("Welcome to the world of titans");
+            System.out.println("1... Learn a bit about the world of Paradis Island.");
+            System.out.println("2... Fight Against Titans (As a Survey Corps Member).");
+            System.out.println("3... Be a Titan and crush anyone in your path.");
+            System.out.println("4... Exit.");
+            
+            System.out.println(""); // Adds a space
+            System.out.print("Please enter your choice: "); // Asking the user for input
+            userInput = input.next(); // Storing that value
+            System.out.println(""); // Adds a space
+            choice = Integer.parseInt(userInput); // Parsing the value to store it as an integer
+            valid = false; // Setting the value to false
+            
+        // Creating an exception using an if statement
+        if (choice < 1 || choice > 4)
+        {
+            throw new Exception();
+        }
+        }
+        
+        // Catch part of try catch which will tell the user that he/she has entered invalid input
+        catch (Exception e)
+        {
+            System.out.println("Sorry, that was not valid input.");
+            System.out.println(""); // Adds a space
+        }
+          
+    // Outputting the paradis island info to the user by calling a method
+    if (choice == 1)
+    {    
+        paradisInfo();
+    }
+            
+    // If statement
+    if (choice == 2)
+    {
+        boolean valid2 = true; // Creating a boolean variable set to true
+        
+        while (valid2) // While loop
+        {
+            
+        try { // Try catch statement initiated
+            
+            // Outputting the menu for the Survey Corps Members
+            System.out.println("You have chosen to be a Survey Corps Member, choose your character");
+            System.out.println("1... Squad Captain - Levi Ackerman");
+            System.out.println("2... 14th Commander - Zoe Hange");
+            System.out.println("3... Soldier - Mikasa Ackerman");
+            
+            System.out.println(""); // Adds a space
+            System.out.println("Please enter your choice:"); // Asking the user for his/her choice
+            userInput1 = input.next(); // Storing that value
+            System.out.println(""); // Adds a space
+            choice1 = Integer.parseInt(userInput1); // Parsing it as integer
+            
+            
+            if (choice1 == 1)
+            {
+                // Outputting the stats and the scenario to the user
+                leviStats();
+                titanAttack();
+                
+                boolean valid13 = true; // Boolean variable set to true
+                
+                while (valid13) // While loop
+                {
+                    
+                try { // Try catch statement initiated
+                    
+                    // Outputting the first scenario and its options to the user
+                    System.out.println(""); // Adds a space
+                    System.out.println("1... Immediately leave and go attack the Titan.");
+                    System.out.println("2... Wait a while for more reinforcements.");
+                    
+                    System.out.println(""); // Adds a space
+                    System.out.print("Enter your choice: "); // Asking the user for input
+                    String LChoice = input.next(); // Storing it as String
+                    int LeviChoice = Integer.parseInt(LChoice); // Parsing it
+              
+                    // If statement for the first option
+                if (LeviChoice == 1)
+                {
+                    valid13 = false; // Boolean variable set to false
+                    valid14 = true; // Boolean variable set to true
+                 }
+                
+                // If statement for the second option
+                 if (LeviChoice == 2)
+                 {
+                    
+                     // Outputting the second scenario
+                    System.out.println("");
+                    System.out.println("You have chosen to wait a while for more reinforcements.");
+                    System.out.println("");
+                    System.out.println("DEFEAT! The Titan wreaked havoc and killed " + PeopleKilled + " people!");
+                    System.out.println("You were not able to save humanity! GAME OVER! TRY AGAIN!");
+                    System.out.println("");
+                    valid13 = false; // Boolean variable set to true
+                    valid = true; // Boolean variable set to true   
+                 }
+                 
+                 // Throws new exception
+                 if (LeviChoice < 1 || LeviChoice > 2)
+                 {
+                    throw new Exception();
+                 }
+            }
+            
+            // Catch part of try catch which will tell the user that he/she has entered invalid input
+            catch (Exception e)
+            {
+                System.out.println(" Levi");
+                System.out.println(""); // Adds a space
+            }
+                }
+            }
+        
+    while (valid14) // Another while loop
+    {
+    try { // Try catch statement initiated
+        
+        // Outtputting the answer to the scenario and asking the user if he/she wishes to continue or exit
+        System.out.println("");
+        System.out.println("You have chosen to immediately leave and go attack the Titan!");
+        System.out.println("");
+        System.out.println("Congratulations! Your exceptional skills in combat allowed you to defeat the Titan with ease!");
+        System.out.println("");
+        System.out.println("1... Continue playing.");
+        System.out.println("2... Exit the program.");
+        
+        System.out.println(""); // Adds a space
+        System.out.print("Choose one of the options listed above: "); // Asking the user for input
+        String LChoice2 = input.next(); // Storing it
+        int LeviChoice2 = Integer.parseInt(LChoice2); // Parsing it
+                
+            if (LeviChoice2 == 1) // If statement
+            {
+                valid14 = false; // Boolean variable set to false
+                valid15 = true; // Boolean variable set to true
+            }
+            
+            // If the user wants to exit
+            if (LeviChoice2 == 2)
+            {
+                System.out.println("");
+                System.out.println("You have chosen to exit.");
+                System.out.println("SHINZOU WO SASAGEYO!"); // farewell message
+                System.out.println("Thank you for trying our program!"); // farewell message
+                System.exit(0); // exit the program
+            }
+            
+            // If statement to throw new exception
+            if (LeviChoice2 < 1 || LeviChoice2 > 2)
+            {
+                throw new Exception();
+            }
+        }
+    
+    // Catch part of try catch which will tell the user that he/she has entered invalid input
+            catch (Exception e)
+            {
+                System.out.println("Sorry, that was not valid input");
+                System.out.println(""); // adds a space     
+            }
+    }
+                
+    while (valid15) // While loop
+    {
+    try { // Try catch statement initiated
+        
+        // Outputting another scenario to the user
+        System.out.println("");
+        System.out.println("More Titans have started flowing through the walls! What will you do now?");
+        System.out.println("");
+        System.out.println("1... Wait for reinforcements.");
+        System.out.println("2... Go head on and kill as many Titans as you can.");
+        
+        System.out.println(""); // Adds a space
+        System.out.print("Enter your choice: "); // Asking for user input
+        String LChoice3 = input.next(); // Storing the value
+        int LeviChoice3 = Integer.parseInt(LChoice3); // Parsing it
+                        
+        // Outputting the result of the scenario using if statement
+            if (LeviChoice3 == 1)
+            {                            
+                System.out.println("");
+                System.out.println("You have chosen to wait for reinforcements!");
+                System.out.println("");
+                System.out.println("Congratulations! You waited enough time for reinforcements to come to your aid and defeat all the Titans.");
+                System.out.println("Well done Soldier! You saved humanity from great defeat! Hope to see you again sometime, Levi Ackerman!");
+                System.out.println("");
+                valid15 = false; // Boolean variable set to false
+                valid = true; // Boolean variable set to true
+            }
+            
+            // Outputting the result of the scenario using if statement
+            if (LeviChoice3 == 2)
+            {                            
+                System.out.println("");
+                System.out.println("You have chosen to go head on and kill as many Titans as you can!");
+                System.out.println("");
+                System.out.println("You were outnumbered! You were NOT able to defeat the Titans and save humanity!");
+                System.out.println("GAME OVER! TRY AGAIN!");
+                System.out.println("");
+                valid15 = false; // Boolean variable set to false
+                valid = true; // Boolean variable set to true
+            }
+            
+            // If statement to throw new exception
+            if (LeviChoice3 < 1 || LeviChoice3 > 2)
+            {
+                throw new Exception();
+            }
+        }
+    
+    // Catch part of try catch which will tell the user that he/she has entered invalid input
+            catch (Exception e)
+            {
+                System.out.println("Sorry, that was not valid input");
+                System.out.println(""); // Adds a space
+            }
+    }
+          
+    // If statement to output Hange Zoe stats and scenarios
+        if (choice1 == 2)
+        {
+            hangezoeStats(); // Output the stats 
+            titanAttack(); // Output the random scenario
+            boolean valid16 = true; // Boolean variable set to true
+            
+            while (valid16) // While loop
+            {
+                try { // try catch initiated
+                    
+                    // Outputting another scenario to the user
+                    System.out.println("");
+                    System.out.println("1... Immediately leave and go attack the Titan.");
+                    System.out.println("2... Wait a while for more reinforcements.");
+                
+                    System.out.println(""); // Adds a space
+                    System.out.print("Enter your choice: "); // Asking the user for input
+                    String ZChoice = input.next(); // Storing the value
+                    int ZoeChoice = Integer.parseInt(ZChoice); // Parsing it
+            
+                    // if statement to return back to the main menu
+                if (ZoeChoice == 1)
+                {
+                    valid16 = false; // Boolean variable set to false
+                    valid17 = true; // Boolean variable set to true
+                }
+                
+                // Outputting the result of a scenario using if statement
+                if (ZoeChoice == 2)
+                {
+                    System.out.println("");
+                    System.out.println("You have chosen to wait a while for more reinforcements.");
+                    System.out.println("");
+                    System.out.println("DEFEAT! The Titan wreaked havoc and killed " + PeopleKilled + " people!");
+                    System.out.println("You were not able to save humanity! GAME OVER! TRY AGAIN!");
+                    System.out.println("");
+                    valid16 = false; // Boolean variable set to false
+                    valid = true; // Boolean variable set to true
+                }
+                
+                // If statement to throw new exception
+                if (ZoeChoice < 1 || ZoeChoice > 2)
+                {
+                    throw new Exception();
+                }
+                }
+                
+                // Catch part of try catch which will tell the user that he/she has entered invalid input
+                catch (Exception e)
+                {
+                    System.out.println("Sorry, that was not valid input");
+                    System.out.println(""); // Adds a space      
+                }
+            }
+        }
+                
+        // While loop to output the result of another scenario
+        while (valid17)
+        {
+            try { // Try catch statement initiated
+                
+                System.out.println("");
+                System.out.println("You have chosen to immediately leave and go attack the Titan!");
+                System.out.println("");
+                System.out.println("Congratulations! Your exceptional intelligence allowed you to defeat the Titan with ease!");
+                System.out.println("");
+                System.out.println("1... Continue playing.");
+                System.out.println("2... Exit the program.");
+                
+                System.out.println(""); // Adds a space
+                System.out.print("Choose one of the options listed above: "); // Asking the user for input
+                String ZChoice2 = input.next(); // Storing the value
+                int ZoeChoice2 = Integer.parseInt(ZChoice2); // Parsing the data
+            
+                // If statement to continue playing
+            if (ZoeChoice2 == 1)
+            {
+                valid17 = false; // Boolean variable set to true
+                valid18 = true; // Boolean variable set to true
+            }
+            
+            // If the user wishes to exit
+            if (ZoeChoice2 == 2)
+            {
+                // Outputs a farwell message
+                System.out.println("");
+                System.out.println("You have chosen to exit.");
+                System.out.println("SHINZOU WO SASAGEYO!");
+                System.out.println("Thank you for trying our program!");
+                System.exit(0); // Exit the program
+            }
+            
+            // Throwing a new exception
+            if (ZoeChoice2 < 1 || ZoeChoice2 > 2)
+            {
+                throw new Exception();
+            }
+            }
+            
+            // Catch part of try catch which will tell the user that he/she has entered invalid input
+            catch (Exception e)
+            {
+                System.out.println("Sorry, that was not valid input");
+                System.out.println(""); // Adds a space
+            }
+        }
+        
+        // While loop to output another scenario
+        while (valid18)
+        {
+            try {
+                
+                // Outputting another scenario
+                System.out.println("");
+                System.out.println("More Titans have started flowing through the walls! What will you do now?");
+                System.out.println("");
+                System.out.println("1... Wait for reinforcements.");
+                System.out.println("2... Go head on and kill as many Titans as you can.");
+                
+                System.out.println(""); // Adds a space
+                System.out.print("Enter your choice: "); // Asking the user for input
+                String ZChoice3 = input.next(); // Storing it
+                int ZoeChoice3 = Integer.parseInt(ZChoice3); // Parising it
+                        
+        // Outputting the result of a scenario
+        if (ZoeChoice3 == 1)
+        {                             
+            System.out.println("");
+            System.out.println("You have chosen to wait for reinforcements!");
+            System.out.println("");
+            System.out.println("Congratulations! You waited enough time for reinforcements to come to your aid and defeat all the Titans.");
+            System.out.println("Well done Soldier! You saved humanity from great defeat! Hope to see you again sometime, Hange-Zoe!");
+            System.out.println("");
+            valid18 = false; // Boolean variable set to false
+            valid = true; // Boolean variable set to true
+        }
+                         
+        // Outputting the result of another scenario
+        if (ZoeChoice3 == 2){                            
+        System.out.println("");
+        System.out.println("You have chosen to go head on and kill as many Titans as you can!");
+        System.out.println("");
+        System.out.println("You were outnumbered! You were NOT able to defeat the Titans and save humanity!");
+        System.out.println("GAME OVER! TRY AGAIN!");
+        System.out.println("");
+        valid18 = false; // Boolean variable set to false
+        valid = true; // Boolean variable set to true
+        }
+        
+        // If statement to throw new exception
+        if (ZoeChoice3 < 1 || ZoeChoice3 > 2)
+        {
+            throw new Exception();    
+        } 
+            }
+            
+        // Catch part of try catch which will tell the user that he/she has entered invalid input
+        catch (Exception e)
+        {
+            System.out.println("Sorry, that was not valid input");
+            System.out.println(""); // Adds a space 
+        }    
+        }
+        
+        // If statement to ouput the scenarios and stats for mikasa ackerman
+    if (choice1 == 3)
+    {
+        mikasaStats(); // Outputs mikasa's stats
+        boolean valid19 = true; // Boolean variable set to true
+        
+        while (valid19) // While loop which will run the code underneath
+        {
+        try { // try catch statement initiated
+             
+            // Outputting the first scenario
+            System.out.println("OH NO! The Warhammer Titan pummeled your home! What will you do about it?");
+            System.out.println("");
+            System.out.println("1... Fight back and try to take down the Titan.");
+            System.out.println("2... Save as many people as you can and retreat.");
+            
+            System.out.println(""); // Adds a space
+            System.out.print("Enter your choice: "); // Asking the user for input
+            String MChoice = input.next(); // Storing the value
+            int MikasaChoice = Integer.parseInt(MChoice); // Parsing it
+        
+            // If statement to output the result
+        if(MikasaChoice == 1)
+        {
+            System.out.println("");
+            System.out.println("You have chosen to fight back and try to take down the Titan!");
+            System.out.println("");
+            System.out.println("DEFEAT! The Titan swung his mighty hammer and pummeled you! YOU DIED!");
+            System.out.println("GAME OVER! TRY AGAIN!");
+            System.out.println("");
+            valid19 = false; // Boolean variable set to false
+            valid = true; // Boolean variable set to true
+        }
+        
+        // If statement to loop back to the menu
+        if(MikasaChoice == 2)
+        {
+            valid19 = false; // Boolean variable set to false
+            valid20 = true; // Boolean variable set to true
+        }
+        
+        // If statement to create a new exception
+        if(MikasaChoice < 1 || MikasaChoice > 2)
+        {
+            throw new Exception();
+        }
+        }
+        
+        // Catch part of try catch which will tell the user that he/she has entered invalid input
+        catch (Exception e)
+        {
+            System.out.println("Sorry, that was not valid input");
+            System.out.println(""); // Adds a space
+        }
+        }
+    }
+    
+    while (valid20) // While loop which will run the code underneath
+    {
+        try { // Try catch statement initiated
+            
+            // Outputting the result of a scenario adn asking the user if he/she wishes to continue or exit
+            System.out.println("");
+            System.out.println("You have chosen to save as many people as possible and retreat!");
+            System.out.println("");
+            System.out.println("Congratulations! You saved 29 people and evaded The Warhammer Titan!");
+            System.out.println("");
+            System.out.println("1... Continue playing.");
+            System.out.println("2... Exit the program.");
+            
+            System.out.println(""); // Adds a space
+            System.out.print("Choose one of the options listed above: "); // Asking the user for input
+            String MChoice2 = input.next(); // Storing the value
+            int MikasaChoice2 = Integer.parseInt(MChoice2); // Parsing it
+            
+            // If statement to continue playing
+            if (MikasaChoice2 == 1)
+            {
+                valid20 = false; // Boolean variable set to false
+                valid21 = true; // Boolean variable set to true
+            }
+             
+            // If statement for when the user wishes to exit
+            if (MikasaChoice2 == 2)
+            {
+                // Outputs a farewell message
+                System.out.println(""); // Adds a space
+                System.out.println("You have chosen to exit.");
+                System.out.println("SHINZOU WO SASAGEYO!");
+                System.out.println("Thank you for trying our program!");
+                System.exit(0); // Exits the program
+            }
+            
+            // If statement to throw new exception
+            if (MikasaChoice2 < 1 || MikasaChoice2 > 2)
+            {
+                throw new Exception();
+            }
+            }
+        
+            // Catch part of try catch which will tell the user that he/she has entered invalid input
+            catch (Exception e)
+            {
+                System.out.println("Sorry, that was not valid input");
+                System.out.println(""); // Adds a space     
+            }
+            }
+               
+        // If statement that throws a new exception
+        if (choice1 < 1 || choice1 > 3)
+        {
+            throw new Exception();
+        }
+            valid2 = false; // Boolean variable set to false
+            valid = true; // Boolean variable set to true
+            }
+        
+        // Catch part of try catch which will tell the user that he/she has entered invalid input
+        catch (Exception e)
+        {
+            System.out.println("Sorry, that was not valid input");
+            System.out.println("");
+        }
+        }
+    }
+    
+    while (valid21) // While loop which will run the code underneath
+    {
+        try { // Try catch statement initiated
+            
+            // Outputting a scenario to the user
+            System.out.println("");
+            System.out.println("The Warhammer Titan is still rampant around your neighbourhood. What will you do?");
+            System.out.println("");
+            System.out.println("1... Fight back and end him once and for all.");
+            System.out.println("2... Retreat.");
+            
+            System.out.println(""); // Adds a space
+            System.out.print("Enter your choice: "); // Asking the user for input
+            String MChoice3 = input.next(); // Storing the value
+            int MikasaChoice3 = Integer.parseInt(MChoice3); // Parsing it
+                        
+            // If statement to output a result of the scenario
+            if (MikasaChoice3 == 1)
+            {
+                System.out.println("");
+                System.out.println("You have chosen to fight back and end The Warhammer Titan once and for all!");
+                System.out.println("");
+                System.out.println("You dealt devastating blows to the Titan and the fight lasted for ages!");
+                System.out.println("In the end, you came out VICTORIOUS! Congratulations!");
+                System.out.println("Good work Soldier! Hope to see you again sometime, Mikasa Ackerman!");
+                System.out.println("");
+                valid21 = false; // Boolean variable set to false
+                valid = true; // Boolean variable set to true
+            }
+                  
+            // If statement which for outputting another result of the scenario
+            if (MikasaChoice3 == 2)
+            {
+                System.out.println("");
+                System.out.println("You have chosen to retreat!");
+                System.out.println("");
+                System.out.println("The Warhammer Titan spotted you while you were making your escape! He rushes towards and slashes you in half with his Katana!");
+                System.out.println("YOU DIED! GAME OVER! TRY AGAIN!");
+                System.out.println("");
+                valid21 = false; // Boolean variable set to false.
+                valid = true; // Boolean variable set to true
+            }      
+            
+            // If statement for throwing a new exception
+            if (MikasaChoice3 < 1 || MikasaChoice3 > 2)
+            {
+                throw new Exception();
+            }
+            }
+        
+        // Catch part of try catch which will tell the user that he/she has entered invalid input
+            catch (Exception e)
+            {
+                System.out.println("Sorry, that was not valid input");
+                System.out.println(""); // Adds a space   
+            }
+    }  
+    
+    if (choice == 3) // if statement
+    {
+    boolean valid3 = true; // Boolean variable set to true
+    
+    while (valid3) // While loop which will run the code underneath
+    {
+    try { // Try catch statement initiated
+        
+        // Asking the user which Titan he/she wishes to be
+        System.out.println("You have chosen to be a Titan and crush anyone in your path, choose your titan");
+        System.out.println("1... Beast Titan - Zeke Yeager");
+        System.out.println("2... Attack Titan - Eren Yeager");
+        System.out.println("3... Colossal Titan - Armin Arlert");
+        
+        System.out.println(""); // Adds a space
+        System.out.print("Please enter your choice: "); // Asking the user for his/her choice
+        userInput2 = input.next(); // Storing the value
+        System.out.println(""); // Adding a space
+        choice2 = Integer.parseInt(userInput2); // Parsing it
+                
+        if (choice2 == 1) // If statement
+        {
+            beastStats(); // Outputting the beast titan's stats
+            boolean valid4 = true; // Boolean variable set to true
+            
+        while (valid4) // While loop which will run the code underneath
+        {
+        try { // Try catch statement initiated
+            
+            // Outputting the first scenario to the user
+            System.out.println("      You have been ambushed by the Special Operations Squad!");
+            System.out.println("                    What will you do now?");
+            System.out.println("");
+            System.out.println("1... Run away and try to escape.");
+            System.out.println("2... Fight back.");
+            
+            System.out.println(""); // Adds a space
+            System.out.print("Enter your option: "); // Asking the user for input
+            String BstChoice = input.next(); // Storing the value
+            int BeastChoice = Integer.parseInt(BstChoice); // Parsing the value
+            
+            // Outputting the first result to the scenario
+            if (BeastChoice == 1)
+            {
+                System.out.println(""); // Adds a space
+                System.out.println("You chose to run away and try to escape.");
+                System.out.println("Another squad was hiding and they got the drop on you. You are now dead!");
+                System.out.println("GAME OVER! TRY AGAIN!");
+                System.out.println("");
+                valid = true; // Boolean variable set to true
+                valid4 = false; // Boolean variable set to false
+            }
+            
+            // Outputting the second result of the scenario the user
+            if (BeastChoice == 2)
+            {
+                System.out.println(""); // Adds a space
+                System.out.println("You chose to fight back.");
+                System.out.println("");
+                System.out.println("Congratulations! You defeated most of the squad and the remaining members in the area retreated.");
+                System.out.println("");
+                valid4 = false; // Boolean variable set to false
+                valid5 = true; // Boolean variable set to true
+            }
+            
+            // If statement to create a new exception
+            if (BeastChoice < 1 || BeastChoice > 2)
+            {
+                throw new Exception();
+            }
+            }
+        
+        // Catch part of try catch which will tell the user that he/she has entered invalid input
+            catch (Exception e)
+            {
+                System.out.println("Sorry, that was not valid input");
+                System.out.println("");   
+            }
+        }
+        }
+            
+    while(valid5) // While loop which will conduct the code underneath
+    {
+    try { // try catch statement initiated
+        
+        // Asking the user if he/she wishes to play again or exit
+        System.out.println("1... Continue playing.");
+        System.out.println("2... Exit the program.");
+        
+        System.out.println(""); // Adds a space
+        System.out.print("Choose one of the options listed above: "); // Asking the user for input
+        String BstChoice2 = input.next(); // Storing the value
+        int BeastChoice2 = Integer.parseInt(BstChoice2); // Parsing the data
+        
+                // If statement for outputting the first result to the user
+                if(BeastChoice2 == 1)
+                {
+                    System.out.println("");
+                    System.out.println("Now that all the members are retreating, what will you do?");
+                    System.out.println("");
+                    valid6 = true; // Boolean variable set to true
+                    valid5 = false; // Boolean variable set to false
+                }
+                
+                // If statement for outputting the second result to the user. He/she wishes to exit
+                if (BeastChoice2 == 2) 
+                {
+                   // Outputting a farewell message to the user
+                    System.out.println(""); // Adds a space
+                    System.out.println("You have chosen to exit.");
+                    System.out.println("SHINZOU WO SASAGEYO!");
+                    System.out.println("Thank you for trying our program!");
+                    System.exit(0); // Exits the program
+                }
+                
+                // Creating a new exception using an if statement
+                if (BeastChoice2 < 1 || BeastChoice2 > 2)
+                {
+                    throw new Exception();
+                }
+        }
+    
+    // Catch part of try catch which will tell the user that he/she has entered invalid input
+    catch (Exception e)
+    {
+        System.out.println("Sorry, that was not valid input");
+        System.out.println(""); // Adds a space
+    }   
+    }
+            
+    while (valid6) // While loop which will run the code underneath
+    {
+    try { // Try catch statement initiated
+        
+        // Outputting another scenario to the user
+        System.out.println("1... Chase after them and not even let one soul escape!");
+        System.out.println("2... Retreat for now and rest.");
+        
+        System.out.println(""); // Adds a space
+        System.out.print("Enter your option: "); // Asking the user for input
+        String BstChoice3 = input.next(); // Storing the value
+        int BeastChoice3 = Integer.parseInt(BstChoice3); // Parsing it
+        
+            // If statement which outputs the first result to the user
+            if (BeastChoice3 == 1)
+            {
+                System.out.println("You have chosen to chase after them and not even let one soul escape!");
+                System.out.println("");
+                System.out.println("Uh Oh! Captain Levi Ackerman spotted you and cut you to pieces. YOU DIED!");
+                System.out.println("GAME OVER!");
+                System.out.println("");
+                valid6 = false; // Boolean variable set to false
+                valid = true; // Boolean variable set to true
+            }
+            
+            // If statement which outputs the second scenario to the user
+            if (BeastChoice3 == 2)
+            {
+                System.out.println("");
+                System.out.println("You have chosen to retreat for now and rest");
+                System.out.println("");
+                System.out.println("Congratulations! You dominated with the Beast Titan killing " + PeopleKilled + " people."); // Outputs how many people the titan killed using a random number generator
+                System.out.println("Good work out there. Hope to see you again sometime Beast Titan!");
+                System.out.println("");
+                valid6 = false; // Boolean variable set to false
+                valid = true; // Boolean variable set to true
+            }
+            
+            // If statement that creates a new exception
+            if (BeastChoice3 <1 || BeastChoice3 > 2)
+            {
+                throw new Exception();
+            }
+        }
+    
+    // Catch part of try catch which will tell the user that he/she has entered invalid input
+    catch (Exception e)
+    {
+        System.out.println("Sorry, that was not valid input");
+        System.out.println(""); // Adds a space  
+    }
+    }
+            // if statement that will output the scenarios and stats for The Attack Titan
+            if (choice2 == 2)
+            {
+                attacktitanStats(); // Outputs the stats
+                boolean valid7 = true; // Boolean variable set to true
+                
+                while (valid7) // While loop which will run the code underneath
+                {
+                    try { // try catch statement initiated
+                        System.out.println("             The Beast Titan was heavily injured while fighting Captain Levi Ackerman!");
+                        System.out.println("          He needs your help to defeat the Captain and make him retreat! What will you do?");
+                        System.out.println("");
+                        System.out.println("1... Go head on and take on Captain Levi.");
+                        System.out.println("2... Flank the Captain while he's distracted.");
+                        
+                        System.out.println(""); // Adds a space
+                        System.out.print("Enter your choice: "); // Asking the user for input
+                        String AtkChoice = input.next(); // Storing the value
+                        int AttackChoice = Integer.parseInt(AtkChoice); // Parsing the data
+                
+                // Outputting the first result of the scenario
+                if (AttackChoice == 1)
+                {
+                    System.out.println(""); // Adds a space between the text
+                    System.out.println("You have chosen to go head on and take on Captain Levi!");
+                    System.out.println("");
+                    System.out.println("Your strength was no match for the fury of his blades. YOU DIED!");
+                    System.out.println("GAME OVER! TRY AGAIN!");
+                    System.out.println("");
+                    valid7 = false; // Boolean variable set to false
+                    valid = true; // Boolean variable set to true
+                }
+                
+                // If statement that will loop back to the menu
+                if (AttackChoice == 2)
+                {
+                    valid7 = false; // Boolean variable set to false
+                    valid8 = true; // Boolean variable set to true
+                }
+                
+                // If statement that creates a new exception
+                if (AttackChoice < 1 || AttackChoice > 2)
+                {
+                    throw new Exception();
+                }
+                }
+                    
+                // Catch part of try catch which will tell the user that he/she has entered invalid input
+                catch (Exception e)
+                {
+                    System.out.println("Sorry, that was not valid input");
+                    System.out.println(""); // Adds a space    
+                }
+                }
+            }
+            
+            while (valid8) // While loop which will run the code underneath
+            {
+                try { // try catch statement iniiated
+                    
+                    // Outputting the result of a scenario and asking the user if he/she wishes to continue or exit
+                    System.out.println("");
+                    System.out.println("You have chosen to flank the Captain while he's distracted.");
+                    System.out.println("");
+                    System.out.println("Congratulations! You were able to injure the Captain and let The Beast Titan escape so that he could recover.");
+                    System.out.println("");
+                    System.out.println("1... Continue playing.");
+                    System.out.println("2... Exit the program.");
+                    
+                    System.out.println(""); // Adds a space
+                    System.out.print("Choose one of the options listed above: "); // Asking the user for input
+                    String AtkChoice2 = input.next(); // Storing the value
+                    int AttackChoice2 = Integer.parseInt(AtkChoice2); // Parsing the data
+                    
+                    // If statement to continue playing
+                    if (AttackChoice2 == 1)
+                    {
+                        valid8 = false; // Boolean variable set to false
+                        valid9 = true; // Boolean variable set to true
+                    }
+                    
+                    // If statement for when the user wants to exit
+                    if (AttackChoice2 == 2)
+                    {
+                        // Outputting a farwell message
+                        System.out.println(""); // Adds a space between the text
+                        System.out.println("You have chosen to exit.");
+                        System.out.println("SHINZOU WO SASAGEYO!");
+                        System.out.println("Thank you for trying out the program!");
+                        System.exit(0); // Exits the program
+                    }
+                    
+                    // If statement to throw a new exception
+                    if (AttackChoice2 < 1 || AttackChoice2 > 2)
+                    {
+                        throw new Exception();
+                    }
+                    }
+                
+                    // Catch part of try catch which will tell the user that he/she has entered invalid input
+                    catch (Exception e)
+                    {
+                        System.out.println("Sorry, that was not valid input");
+                        System.out.println(""); // Adds a space
+                    }
+                    }
+            
+        while (valid9) // While loop which will run the code underneath
+        {
+            try { // try catch statement initiated
+                
+                // Outputting the second scenario to the user
+                System.out.println("");
+                System.out.println("You angered Captain Levi and he rushes towards you! What will you do now?");
+                System.out.println("");
+                System.out.println("1... Stay in one spot and let him come to you.");
+                System.out.println("2... Use your hardening ability to stop his attacks.");
+                
+                System.out.println(""); // Adds a space between the text
+                System.out.print("Enter your choice: "); // Asking the user for input
+                String AtkChoice3 = input.next(); // Storing the value as String
+                int AttackChoice3 = Integer.parseInt(AtkChoice3); // Parsing it as Integer
+                      
+                // If statement that outputs the result of the second scenario to the user
+                if (AttackChoice3 == 1)
+                {
+                    System.out.println(""); // Adds a space between the text
+                    System.out.println("You have chosen to stay in one spot and let Captain Levi come to you!");
+                    System.out.println("");
+                    System.out.println("Uh Oh! The Captain was able to maneuver well and attack your weakest spots. YOU DIED!");
+                    System.out.println("GAME OVER! TRY AGAIN!");
+                    System.out.println("");
+                    valid9 = false; // Boolean variable set to false
+                    valid = true; // Boolean variable set to true
+                }
+                       
+                // If statement for ouputting the second result of the second scenario to the user
+                if (AttackChoice3 == 2)
+                {
+                    System.out.println("");
+                    System.out.println("You have chosen to use your hardening ability to stop his attacks!");
+                    System.out.println("");
+                    System.out.println("Congratulations! You defended well against The Captain and forced him to retreat!");
+                    System.out.println("Good work out there! You saved The Beast Titan's life. Hope to see you again, Attack Titan!");
+                    System.out.println("");
+                    valid9 = false; // Boolean variable set to false
+                    valid = true; // Boolean variable set to true
+                }
+                
+                // If statement that creates a new exception
+                if (AttackChoice3 < 1 || AttackChoice3 > 2)
+                {
+                    throw new Exception();  
+                }
+            }
+            
+                // Catch part of try catch which will tell the user that he/she has entered invalid input
+                catch (Exception e)
+                {
+                    System.out.println("Sorry, that was not valid input");
+                    System.out.println(""); // Adds a space
+                }
+                }
+            
+            // If statement that will output the scenarios and stats of The Colossal Titan
+            if (choice2 == 3)
+            {
+                colossalStats(); // Outputs the stats of The Colossal Titan
+                boolean valid10 = true; // Boolean variable set to true
+                
+                while (valid10) // While loop which will run the code underneath
+                {
+                    try { // try catch statement initiated
+                        
+                        // Outputting the first scenario to the user
+                        System.out.println("                         You want to break into Wall Maria by kicking down the entrance!");
+                        System.out.println("   There are Survey Corps Members and Turrets on top of the wall making it impossible to do so. What will you do?");
+                        System.out.println("");
+                        System.out.println("1... Break down the entrance.");
+                        System.out.println("2... Destroy the Turrets and kill the Survey Corps.");
+                        
+                        System.out.println(""); // Adds a space between the text
+                        System.out.print("Enter your choice: "); // Asking the user for input
+                        String ColChoice = input.next(); // Storing the value
+                        int ColossalChoice = Integer.parseInt(ColChoice); // Parsing the data
+                
+                // Outputting the first result to the first scenario to the user
+                if (ColossalChoice == 1)
+                {
+                    System.out.println(""); // Adds a space between the text
+                    System.out.println("You have chosen to break down the entrance!");
+                    System.out.println("");
+                    System.out.println("There were too many of them and you couldn't defend in time! YOU DIED!");
+                    System.out.println("GAME OVER! TRY AGAIN!");
+                    System.out.println("");
+                    valid10 = false; // Boolean variable set to false
+                    valid = true; // Boolean variable set to true
+                }
+                
+                // If statement to end the while loop and allow the program to run new code
+                if (ColossalChoice == 2)
+                {
+                    valid10 = false; // Boolean variable set to false
+                    valid11 = true; // Boolean variable set to true
+                }
+                
+                // If statement to throw a new exception
+                if (ColossalChoice < 1 || ColossalChoice > 2){
+                    throw new Exception();
+                }
+                }
+                    
+                 // Catch part of try catch which will tell the user that he/she has entered invalid input
+                 catch (Exception e)
+                 {
+                    System.out.println("Sorry, that was not valid input");
+                    System.out.println(""); // Adds a space between the text
+                }
+            }
+        }
+            
+            while (valid11) // While loop which will run the code underneath
+            {
+                try { // try catch statement initated
+                    
+                    // Outputting the result of the second option to the user. It also asks the user if he/she wishes to continue or exit
+                    System.out.println("");
+                    System.out.println("You have chosen to destroy the Turrets and kill the Survey Corps!");
+                    System.out.println("");
+                    System.out.println("Congratulations! You killed " + PeopleKilled + " Survey Corps Members! The Turrets are no longer active!");
+                    System.out.println("");
+                    System.out.println("1... Continue playing.");
+                    System.out.println("2... Exit the program.");
+                    
+                    System.out.println(""); // Adds a space
+                    System.out.print("Choose one of the options listed above: "); // Asking the user for input
+                    String ColChoice2 = input.next(); // Storing the value as String
+                    int ColossalChoice2 = Integer.parseInt(ColChoice2); // Parsing it as Ineteger
+                    
+                // If statement for the first option which is to continue playing
+                if (ColossalChoice2 == 1)
+                {
+                    valid11 = false; // Boolean variable set to false
+                    valid12 = true; // Boolean variable set to true
+                }
+                
+                // If statement for when the user wishes to exit
+                if (ColossalChoice2 == 2)
+                {
+                    // Outputting a farewell message
+                    System.out.println(""); // Adds a space
+                    System.out.println("You have chosen to exit.");
+                    System.out.println("SHINZOU WO SASAGEYO!");
+                    System.out.println("Thank you for trying out the program!");
+                    System.exit(0); // Exits the program
+                }
+                
+                // If statement that creates a new exception
+                if (ColossalChoice2 < 1 || ColossalChoice2 > 2)
+                {
+                    throw new Exception();
+                }
+            }
+                
+                // Catch part of try catch which will tell the user that he/she has entered invalid input
+                catch (Exception e)
+                {
+                    System.out.println("Sorry, that was not valid input");
+                    System.out.println(""); // Adds a space between the text
+                }
+            }
+            
+            while(valid12)
+            {
+                try { // try catch statement initiated
+                    System.out.println("");
+                    System.out.println("There are more Survey Corps Members approaching rapidly! What will you do?");
+                    System.out.println("");
+                    System.out.println("1... Wait for the Survey Corps to arrive and kill them.");
+                    System.out.println("2... Break down the entrance while you still have a chance.");
+                    
+                    System.out.println(""); // Adds a space between the text
+                    System.out.print("Enter your choice: "); // Asking the user for input
+                    String ColChoice3 = input.next(); // Storing the value as String
+                    int ColossalChoice3 = Integer.parseInt(ColChoice3); // Parsing it as Integer
+                      
+                // Outputting the result of the first option to the user
+                if (ColossalChoice3 == 1)
+                {
+                    System.out.println(""); // Adds a space between the text
+                    System.out.println("You have chosen to wait for the Survey Corps to arrive and to kill them!");
+                    System.out.println("");
+                    System.out.println("DEFEAT! They flanked from all sides and you perished!");
+                    System.out.println("GAME OVER! TRY AGAIN!");
+                    System.out.println("");
+                    valid12 = false; // Boolean variable set to false
+                    valid = true; // Boolean variable set to true
+                }     
+                
+                // Outputting the result of the second option to the user
+                if (ColossalChoice3 == 2)
+                {
+                    System.out.println(""); // Adds a space between the text
+                    System.out.println("You have chosen to break down the entrance while you still have a chance!");
+                    System.out.println("");
+                    System.out.println("Congratulations! You broke down the wall and the Titan race has gained control of Wall Maria!");
+                    System.out.println("Good work out there. Hope to see you again sometime, Colossal Titan!");
+                    System.out.println("");
+                    valid12 = false; // Boolean variable set to false
+                    valid = true; // Boolean variable set to true
+                }
+                
+                // If statement that creates a new exception
+                if (ColossalChoice3 < 1 || ColossalChoice3 > 2)
+                {
+                    throw new Exception();    
+                }
+            }
+              
+                // Catch part of try catch which will tell the user that he/she has entered invalid input
+                catch (Exception e)
+                {
+                    System.out.println("Sorry, that was not valid input");
+                    System.out.println(""); // Adds a space between the text
+                }
+            }
+              
+            // If statement for creating a new exception
+            if (choice2 > 3 || choice2 < 1)
+            {
+                throw new Exception();
+            }
+                valid3 = false; // Boolean variable set to false
+                valid = true; // Boolean variable set to true
+            }
+            
+    // Catch part of try catch which will tell the user that he/she has entered invalid input
+    catch (Exception e)
+    {
+        System.out.println("Sorry, that was not valid input");
+        System.out.println(""); // Adds a space
+    }
+    }
+}
+    
+    // If statement for when the user wants to exit from the menu
+    if (choice == 4)
+    {
+        System.out.println("You have chosen to exit."); // Tells the user what he/she has chosen
+        System.out.println("SHINZOU WO SASAGEYO!"); // Farewell message
+        System.out.println("Thank you for trying out the program!"); // Farewell message
+        System.exit(0); // Exits the program
+    }
+   }
+  }
+}
